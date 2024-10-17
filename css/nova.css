@@ -1,0 +1,22 @@
+body {
+    background-color: #1d1e26;
+}
+#nova-chat {
+    font-size: 20px;
+    color: lime;
+
+}
+
+#choices-container button {
+    font-size: 20px;
+    margin: 5px 0; /* Espacement entre les boutons */
+    padding: 10px; /* Espacement intérieur du bouton */
+    background-color: #1d1e26; /* Fond bleu */
+    color: lime; /* Couleur du texte */
+    cursor: pointer; /* Curseur en main */
+    transition: background-color 0.3s; /* Transition de couleur */
+}
+
+#choices-container button:hover {
+    background-color: rgb(112, 154, 112); /* Couleur de fond au survol */
+}
