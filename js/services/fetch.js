@@ -1,3 +1,5 @@
+import config from '../config.js';
+
 // Fonction générique pour faire des requêtes API
 export function fetchAPI(url, method, accessToken, body = null) {
     const headers = {

@@ -1,7 +1,7 @@
 import config from './config.js'; // Assurez-vous que le chemin est correct
 
-import helix from './services/helixTwitch.js';
-import { fetchApi } from './services/fetch.js';
+import * as helix from './services/helixTwitch.js';
+import { fetchAPI } from './services/fetch.js';
 
 // Vérifie l'URL pour le token d'accès
 const urlParams = new URLSearchParams(window.location.hash.substring(1));
@@ -9,7 +9,12 @@ const accessToken = urlParams.get('access_token');
 
 if (accessToken) {
     console.log("Access Token trouvé dans nova.js :", accessToken);
-    helix.getUserData(accessToken);
+    console.log(helix);
+    helix.getUserData(accessToken).then(async (userData) => {
+      const channelData = await helix.getChannelData(userData.id, accessToken).catch(showError);
+
+      startGame(channelData);
+    }).catch(showError);
 } else {
     console.log("Aucun access token trouvé dans nova.js.");
 }
@@ -166,7 +171,7 @@ function modifyStreamTitle(count, userId, accessToken) {
 
     console.log("Modification du titre du stream avec le titre :", newTitle);
 
-    helix.updateStreamTitle(accessToken, userId, newTitle);
+    helix.updateStreamTitle(accessToken, userId, newTitle).catch(showError);
 }
 
 const messageContainer = document.getElementById('nova-chat');  
