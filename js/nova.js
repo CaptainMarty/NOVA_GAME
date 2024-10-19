@@ -1,6 +1,6 @@
 import config from './config.js'; // Assurez-vous que le chemin est correct
 
-import helix from 'helixTwitch.js';
+import helix from './services/helixTwitch.js';
 import { fetchApi } from './services/fetch.js';
 
 // Vérifie l'URL pour le token d'accès
