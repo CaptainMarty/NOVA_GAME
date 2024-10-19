@@ -5,9 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NOVA Game</title>
+  <link rel="icon" href="img/favicon.png" type="image/png">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/font.css">
-
   <script type="module" src="https://cdn.jsdelivr.net/npm/tmi.js"></script>
   <script defer type="module" src="js/config.js"></script>
   <script defer type="module" src="js/main.js"></script>
@@ -15,7 +15,7 @@
   <style>
     /* Styles spécifiques à index.html */
     body {
-      background: url('img/background.png') no-repeat center center fixed;
+      background: url('img/background_3.png') no-repeat center center fixed;
       /* Arrière-plan image */
       background-size: cover;
     }
@@ -25,26 +25,45 @@
 
 <body>
   <div id="container">
-    <header>
-      <img src="img/logo.png" alt="Logo du jeu" id="game-logo">
-      <h1>N.O.V.A GAME</h1>
-      <h4>Automated Virtual Original Network</h4>
-    </header>
-
+      <h1>Bienvenue dans le monde de NOVA GAME</h1>
+      <h4>"Automated Virtual Original Network"</h4>
+      <p class="description">
+        Plongez dans l'univers mystérieux du hacking cybernétique,<br>
+        où chaque phrase prononcée par N.O.V.A. vous mettra à rude épreuve !<br>
+        NOVA Game est un jeu immersif qui prend le contrôle de votre ordinateur, <br>
+        de votre compte Twitch, et bien plus encore.. <br><br>
+        NOVA est un jeu intéractif avec votre tchat <strong> TWITCH</strong>, <br> 
+        Assurez-vous d'être en Live pour jouer.
+      </p>
+      <p class="disclaimer">
+        DISCLAIMER : <strong>Aucune de vos données ne sera exploitée ou utilisée à des fins de revente.</strong>
+      </p>
+    
     <div id="rules">
       <h2>Règles du jeu :</h2>
-      <p>- Pour le bon déroulement du jeu, veuillez accepter les autorisations</p>
-      <p>- Demandez à votre tchat twitch d'être actif car vous (streamer) aurez besoin de lui.</p>
-      <p>- N'ayez pas peur... ça va bien se passer...</p>
-
+      <ul>
+        <li>Pour le bon déroulement du jeu, veuillez accepter les autorisations nécessaires.</li>
+        <li>Vos Viewers sont important, car vous (streamer) aurez besoin d'eux.</li>
+        <li>Suivre les instructions.</li>
+        <li>Ne pas quitter la page, le jeu reprendras à zéro.</li>
+        <li>Amusez-vous !</li>
+      </ul>
     </div>
+    
 
     <div id="start-button-container">
       <input type="checkbox" id="twitch-authorization">
-      <label for="twitch-authorization">J'autorise l'application à se lier avec mon compte Twitch</label><br>
+      <label for="twitch-authorization">J'autorise l'application à accéder à mes données</label><br>
+    </div>
+    <div>
       <button id="authorize-twitch">Autoriser et Commencer le jeu</button>
     </div>
   </div>
+
+  <footer id="footer">
+    <p>&copy; 2024 N.O.V.A. Game. Tous droits réservés. <br>
+        Créer par CptMarty en collaboration avec shiishii_labs </p>
+</footer>
 
 </body>
 

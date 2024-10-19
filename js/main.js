@@ -13,7 +13,7 @@ document.getElementById('authorize-twitch').addEventListener('click', function()
         // Redirige vers l'URL d'autorisation
         window.location.href = authUrl;
     } else {
-        alert("Vous devez autoriser l'accès à votre compte Twitch pour continuer.");
+        alert("Vous devez autoriser l'accès pour continuer.");
     }
 });
 

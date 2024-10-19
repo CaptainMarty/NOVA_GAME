@@ -12,15 +12,21 @@ body, html {
     justify-content: center;
     align-items: center;
     height: 100%;
+    color: lime;
 }
 
-header {
+#container {
     text-align: center;
 }
+h4 {
+    font-style: italic;
+}
 
-#game-logo {
-    width: 250px;
-
+.description{
+    font-size: 20px;
+}
+.disclaimer {
+    font-style: italic;
 }
 #rules {
     text-align: justify;
@@ -29,54 +35,39 @@ header {
     border-radius: 10px;
 }
 
-#start-button-container {
+#authorize-twitch {
+    background-color: #1d1e26 !important; 
+    color: lime;
+    justify-content: center;
+    align-items: center;
     margin-top: 20px;
-}
-
-#start-game {
-    padding: 10px 20px;
     font-size: 18px;
-    background-color: #1d1e26;
-    color: white;
-    border: none;
     cursor: pointer;
 }
 
-#start-game:hover {
-    background-color: #00994c;
+#authorize-twitch:hover {
+    cursor: pointer;
+    background-color: #3f4252 !important ;
 }
 
-#authorize-twitch{
-    background-color: cadetblue !important; 
-    color: #1d1e26;
+
+
+#footer {
+    background-color: #000;
+    color: #fff;            
+    text-align: center;      
+    padding: 10px 0;        
+    position: fixed;        
+    bottom: 0;
+    width: 100%;             
+    font-size: 12px;         
 }
 
-/* Écran de piratage */
-#screen-blackout {
-    width: 100%;
-    height: 100%;
-    background-color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    color: lime;
-    font-size: 24px;
-    position: relative;
+#footer p {
+    margin: 0
 }
 
-.hacking-text {
-    margin-bottom: 20px;
-}
 
-/* NOVA Chat */
-#nova-chat {
-    max-width: 600px;
-    text-align: center;
-    padding: 20px;
-    border-radius: 10px;
-    font-size: 18px;
-}
 
 /* Animations */
 

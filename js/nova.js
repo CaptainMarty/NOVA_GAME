@@ -87,7 +87,7 @@ function displayScene(sceneIndex, scenes) {
     });
     } else if(scene.file) {
       import(scene.file).then((newScene) => {
-        newScene.default(scene, nextScene).then(result => {
+        newScene.default(scenes, scene, nextScene).then(result => {
           console.log(result);
         });
       });
