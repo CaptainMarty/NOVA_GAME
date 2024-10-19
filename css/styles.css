@@ -22,7 +22,6 @@ header {
     width: 250px;
 
 }
-
 #rules {
     text-align: justify;
     max-width: 600px;
@@ -63,33 +62,6 @@ header {
 
 .hacking-text {
     margin-bottom: 20px;
-}
-
-.flicker-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(234, 40, 40, 0.05);
-    z-index: 999;
-}
-
-/* Barre de chargement */
-#loading-bar-container {
-    width: 80%;
-    height: 20px;
-    border: 2px solid lime;
-    margin-top: 20px;
-    overflow: hidden;
-    position: relative;
-}
-
-#loading-bar {
-    width: 0;
-    height: 100%;
-    background-color: lime;
-    animation: loading 5s linear forwards;
 }
 
 /* NOVA Chat */

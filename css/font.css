@@ -13,8 +13,8 @@
     font-style: normal;
 }
 
-/* Appliquer la police à tout le document */
+
 body, html {
-    font-family: 'Cascadia Code', monospace; /* Applique la police ici */
-    color: white; /* la couleur du texte */
+    font-family: 'Cascadia Code', monospace;
+    color: white;
 }
