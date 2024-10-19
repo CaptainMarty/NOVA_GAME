@@ -26,3 +26,11 @@ if (accessToken) {
     // Redirige vers la page de hacking avec le token
     window.location.href = `hacking.html#access_token=${accessToken}`; // Assurez-vous que le token est dans l'URL
 }
+
+// Le curseur personanalisé
+let cursor = document.querySelector('#cursor');
+document.onmousemove = function (e) {
+    // Déplacement du curseur
+    cursor.style.top = e.pageY + 'px';
+    cursor.style.left = e.pageX + 'px';
+}

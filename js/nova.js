@@ -186,5 +186,6 @@ function modifyStreamTitle(count, userId, accessToken) {
     helix.updateStreamTitle(accessToken, userId, newTitle).catch(showError);
 }
 
+
 const messageContainer = document.getElementById('nova-chat');  
 const choicesContainer = document.getElementById('choices-container');  
