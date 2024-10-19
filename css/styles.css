@@ -46,6 +46,11 @@ header {
     background-color: #00994c;
 }
 
+#authorize-twitch{
+    background-color: cadetblue !important; 
+    color: #1d1e26;
+}
+
 /* Écran de piratage */
 #screen-blackout {
     width: 100%;

@@ -7,11 +7,11 @@ document.addEventListener("DOMContentLoaded", function () {
     
     if (accessToken) {
         setTimeout(() => {
-            window.location.href = `nova.html#access_token= ${ accessToken }`;
-        }, 30000);
+            window.location.href = `nova.html#access_token=${ accessToken }`;
+        }, 15000);
     console.log("Access Token trouvé dans hacking.html :", accessToken);
 
-    const consoleElement = document.getElementById("consoleElement"); // Changement ici
+    const consoleElement = document.getElementById("consoleElement");
 
     var txt = [
         "================================================",
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
     ];
 
     var docfrag = document.createDocumentFragment();
-    var intervalID = window.setInterval(updateScreen, 160);
+    var intervalID = window.setInterval(updateScreen, 220);
 
     async function getStreamerInfo() {
         try {
@@ -100,23 +100,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function updateScreen() {
-        // Shuffle the "txt" array
         txt.push(txt.shift());
-        // Rebuild document fragment
         txt.forEach(function (e) {
             var p = document.createElement("p");
             p.textContent = e;
             docfrag.appendChild(p);
         });
-        // Clear DOM body
         while (consoleElement.firstChild) {
             consoleElement.removeChild(consoleElement.firstChild);
         }
         consoleElement.appendChild(docfrag);
-        consoleElement.scrollTop = consoleElement.scrollHeight; // Fait défiler vers le bas
+        consoleElement.scrollTop = consoleElement.scrollHeight;
     }
-
-    // Appel initial pour obtenir les informations du streamer
     getStreamerInfo();
 
 } else {
