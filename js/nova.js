@@ -48,8 +48,8 @@ function createScenes(channelName, viewerCount) {
             ],
         },
         3: {
-            message: ``,
-            choices: [{ text: "Commencer le test", nextScene: 5 }], // Commencer le test
+          file: './scenes/scene3.js',
+          choices: [{ text: "Commencer le test", nextScene: 5 }], // Commencer le test
         },
         5: { // Scène pour le test
             message: `Le test commence maintenant ! Vous avez 2 minutes pour écrire "NOVA" dans le chat.`,
@@ -65,6 +65,7 @@ function displayScene(sceneIndex, scenes) {
     messageContainer.innerHTML = ''; // Réinitialise le message précédent
     choicesContainer.innerHTML = ''; // Efface les choix précédents
 
+    if(scene.message) {
     // Affiche le nouveau message avec l'effet de machine à écrire
     typeWriter(scene.message, messageContainer, () => {
         if (scene.choices) {
@@ -84,6 +85,17 @@ function displayScene(sceneIndex, scenes) {
             });
         }
     });
+    } else if(scene.file) {
+      import(scene.file).then((newScene) => {
+        newScene.default(scene, nextScene).then(result => {
+          console.log(result);
+        });
+      });
+    }
+}
+
+function nextScene(scenes, newScene) {
+  displayScene(newScene, scenes);
 }
 
 // Fonction pour créer l'effet "machine à écrire"
