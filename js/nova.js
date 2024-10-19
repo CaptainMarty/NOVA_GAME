@@ -1,76 +1,17 @@
 import config from './config.js'; // Assurez-vous que le chemin est correct
 
+import helix from 'helixTwitch.js';
+import { fetchApi } from './services/fetch.js';
+
 // Vérifie l'URL pour le token d'accès
 const urlParams = new URLSearchParams(window.location.hash.substring(1));
 const accessToken = urlParams.get('access_token');
 
 if (accessToken) {
     console.log("Access Token trouvé dans nova.js :", accessToken);
-    getUserData(accessToken);
+    helix.getUserData(accessToken);
 } else {
     console.log("Aucun access token trouvé dans nova.js.");
-}
-
-// Fonction générique pour faire des requêtes API
-function fetchAPI(url, method, accessToken, body = null) {
-    const headers = {
-        'Authorization': `Bearer ${accessToken}`,
-        'Client-ID': config.clientId,
-        'Content-Type': body ? 'application/json' : undefined,
-    };
-    
-    return fetch(url, {
-        method,
-        headers,
-        body: body ? JSON.stringify(body) : undefined,
-    }).then(response => {
-        if (!response.ok) {
-            return response.text().then(text => {
-                throw new Error(`Erreur réseau: ${response.status} ${text}`);
-            });
-        }
-        return response.json();
-    });
-}
-
-// Fonction pour récupérer les données de l'utilisateur
-function getUserData(accessToken) {
-    const url = 'https://api.twitch.tv/helix/users';
-
-    console.log("Récupération des données de l'utilisateur...");
-    fetchAPI(url, 'GET', accessToken)
-        .then(data => {
-            console.log("Données de l'utilisateur récupérées :", data);
-            if (data.data.length > 0) {
-                const userInfo = data.data[0]; // Données de l'utilisateur
-                console.log("User ID :", userInfo.id, "Nom de la chaîne :", userInfo.login);
-
-                // Appelle ensuite pour obtenir les données de la chaîne
-                getChannelData(userInfo.id, accessToken);
-            } else {
-                showError("Aucun utilisateur trouvé.");
-            }
-        })
-        .catch(error => showError('Erreur lors de la récupération des données de l’utilisateur:', error));
-}
-
-// Fonction pour récupérer les données de la chaîne
-function getChannelData(userId, accessToken) {
-    const url = `https://api.twitch.tv/helix/streams?user_id=${userId}`;
-
-    console.log("Récupération des données de la chaîne pour l'utilisateur ID :", userId);
-    fetchAPI(url, 'GET', accessToken)
-        .then(data => {
-            console.log("Données de la chaîne récupérées :", data);
-            if (data.data.length > 0) {
-                const channelInfo = data.data[0]; // Données de la chaîne
-                console.log("Info de la chaîne :", channelInfo);
-                startGame(channelInfo);
-            } else {
-                showError("Le streamer n'est pas en direct.");
-            }
-        })
-        .catch(error => showError('Erreur lors de la récupération des données de la chaîne:', error));
 }
 
 // Démarre le jeu
@@ -222,16 +163,10 @@ function modifyStreamTitle(count, userId, accessToken) {
     }
 
     const newTitle = `NOVA a été mentionné ${count} fois !`;
-    const url = `https://api.twitch.tv/helix/channels`;
 
     console.log("Modification du titre du stream avec le titre :", newTitle);
-    
-    fetchAPI(url, 'PATCH', accessToken, { broadcaster_id: userId, title: newTitle }) // Inclure le broadcaster_id
-        .then(data => {
-            console.log('Titre du stream modifié avec succès', data);
-            document.getElementById('nova-chat').innerHTML += `<p>Titre du stream mis à jour avec succès.</p>`;
-        })
-        .catch(error => showError('Erreur lors de la modification du titre du stream:', error));
+
+    helix.updateStreamTitle(accessToken, userId, newTitle);
 }
 
 const messageContainer = document.getElementById('nova-chat');  

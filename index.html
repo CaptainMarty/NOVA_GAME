@@ -1,49 +1,51 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOVA Game</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/font.css">
-    <style>
-        /* Styles spécifiques à index.html */
-        body {
-            background: url('img/background.png') no-repeat center center fixed; /* Arrière-plan image */
-            background-size: cover;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NOVA Game</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/font.css">
+
+  <script type="module" src="https://cdn.jsdelivr.net/npm/tmi.js"></script>
+  <script defer type="module" src="js/config.js"></script>
+  <script defer type="module" src="js/main.js"></script>
+
+  <style>
+    /* Styles spécifiques à index.html */
+    body {
+      background: url('img/background.png') no-repeat center center fixed;
+      /* Arrière-plan image */
+      background-size: cover;
+    }
+  </style>
 
 </head>
+
 <body>
-    <div id="container">
-        <header>
-            <img src="img/logo.png" alt="Logo du jeu" id="game-logo">
-            <h1>N.O.V.A GAME</h1>
-            <h4>Automated Virtual Original Network</h4>
-        </header>
+  <div id="container">
+    <header>
+      <img src="img/logo.png" alt="Logo du jeu" id="game-logo">
+      <h1>N.O.V.A GAME</h1>
+      <h4>Automated Virtual Original Network</h4>
+    </header>
 
-        <div id="rules">
-            <h2>Règles du jeu :</h2>
-            <p>- Pour le bon déroulement du jeu, veuillez accepter les autorisations</p>
-            <p>- Demandez à votre tchat twitch d'être actif car vous (streamer) aurez besoin de lui.</p>
-            <p>- N'ayez pas peur... ça va bien se passer...</p>
-            
-        </div>
+    <div id="rules">
+      <h2>Règles du jeu :</h2>
+      <p>- Pour le bon déroulement du jeu, veuillez accepter les autorisations</p>
+      <p>- Demandez à votre tchat twitch d'être actif car vous (streamer) aurez besoin de lui.</p>
+      <p>- N'ayez pas peur... ça va bien se passer...</p>
 
-        <div id="start-button-container">
-            <input type="checkbox" id="twitch-authorization">
-            <label for="twitch-authorization">J'autorise l'application à se lier avec mon compte Twitch</label><br>
-            <button id="authorize-twitch">Autoriser et Commencer le jeu</button>
-        </div>
     </div>
 
-
-    <script type="module" src="js/config.js"></script>
-    <script type="module" src="js/main.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tmi.js"></script>
-
-
+    <div id="start-button-container">
+      <input type="checkbox" id="twitch-authorization">
+      <label for="twitch-authorization">J'autorise l'application à se lier avec mon compte Twitch</label><br>
+      <button id="authorize-twitch">Autoriser et Commencer le jeu</button>
+    </div>
+  </div>
 
 </body>
+
 </html>

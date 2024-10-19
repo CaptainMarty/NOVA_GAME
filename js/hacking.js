@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
     if (accessToken) {
         setTimeout(() => {
-            window.location.href = `nova.html#access_token= ${ accessToken }`;
+            window.location.href = `nova.html#access_token=${ accessToken }`;
         }, 30000);
     console.log("Access Token trouvé dans hacking.html :", accessToken);
 
