@@ -61,7 +61,6 @@ function createScenes(channelName, viewerCount) {
 // Affiche la scène
 function displayScene(sceneIndex, scenes) {
     const scene = scenes[sceneIndex];
-    console.log("Affichage de la scène :", sceneIndex);
     messageContainer.innerHTML = ''; // Réinitialise le message précédent
     choicesContainer.innerHTML = ''; // Efface les choix précédents
 
@@ -73,7 +72,6 @@ function displayScene(sceneIndex, scenes) {
                 const button = document.createElement('button');
                 button.innerText = choice.text;
                 button.addEventListener('click', () => {
-                    console.log("Choix sélectionné :", choice.text);
                     choicesContainer.innerHTML = ''; // Efface les choix avant d'afficher la nouvelle scène
                     if (sceneIndex === 3 && choice.text === "Commencer le test") {
                         startViewerTest(channelName, accessToken); // Appel de la fonction de test
@@ -88,7 +86,6 @@ function displayScene(sceneIndex, scenes) {
     } else if(scene.file) {
       import(scene.file).then((newScene) => {
         newScene.default(scenes, scene, nextScene).then(result => {
-          console.log(result);
         });
       });
     }
@@ -100,7 +97,6 @@ function nextScene(scenes, newScene) {
 
 // Fonction pour créer l'effet "machine à écrire"
 function typeWriter(text, element, callback) {
-    console.log("Démarrage de l'effet machine à écrire pour le texte :", text);
     let i = 0;
     element.innerHTML = ''; // Réinitialise le contenu avant de commencer
     const speed = 20; // Vitesse en millisecondes
@@ -150,7 +146,7 @@ function startViewerTest(channelName, accessToken) {
             const userMessage = message.split(':')[2]?.trim(); // Récupère le message de l'utilisateur
             if (userMessage?.includes("NOVA")) {
                 count++;
-                console.log("Message contenant 'NOVA' détecté, compteur :", count);
+                console.log("NOVA = ", count);
             }
         }
     };
