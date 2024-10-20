@@ -2,19 +2,30 @@ body {
     background-color: #1d1e26;
 }
 #nova-chat {
+    margin-top: 50px;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 20px;          /* Ajoutez cette ligne pour créer de l'espace entre le texte et le bouton */
     font-size: 20px;
     color: lime;
+}
 
+#choices-container {
+    display: block;                 /* Vous pouvez utiliser block si vous n'utilisez pas Flexbox */
+    text-align: center;            /* Centre le contenu horizontalement */
+    height: 100%;                  /* Assurez-vous que le conteneur a une hauteur définie */
 }
 
 #choices-container button {
     font-size: 20px;
-    margin: 5px 0; /* Espacement entre les boutons */
-    padding: 10px; /* Espacement intérieur du bouton */
-    background-color: #1d1e26; /* Fond bleu */
-    color: lime; /* Couleur du texte */
-    cursor: pointer; /* Curseur en main */
+    margin-top: 20px;             /* Ajustez cette valeur pour l'espacement souhaité */
+    margin: 5px auto;             /* Utilisez auto pour centrer horizontalement */
+    padding: 10px;                /* Espacement intérieur du bouton */
+    background-color: #1d1e26;    /* Fond bleu */
+    color: lime;                  /* Couleur du texte */
+    cursor: pointer;              /* Curseur en main */
     transition: background-color 0.3s; /* Transition de couleur */
+    display: block;               /* Permet à margin: auto de fonctionner */
 }
 
 #choices-container button:hover {

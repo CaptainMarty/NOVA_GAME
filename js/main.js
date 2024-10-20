@@ -28,12 +28,19 @@ if (accessToken) {
 }
 
 // Nova Face
-// Fonction pour charger le contenu HTML du personnage dans le div spécifié
+// Fonction pour charger le contenu HTML du personnage dans les divs spécifiés par la classe "novaFace-container"
 function loadNovaFace() {
   fetch('../NovaFace/indexNova.html') // Chemin vers ton fichier HTML du personnage
     .then(response => response.text())
     .then(data => {
-      document.getElementById('novaFace-container').innerHTML = data;
+      // Sélectionner tous les éléments avec la classe 'novaFace-container'
+      let containers = document.querySelectorAll('.novaFace-container');
+      
+      // Pour chaque conteneur, insérer le contenu HTML et charger CSS et JS
+      containers.forEach(container => {
+        container.innerHTML = data;
+      });
+      
       // Charger les fichiers CSS et JS du personnage après l'insertion HTML
       loadNovaFaceCSS();
       loadNovaFaceJS();
@@ -59,4 +66,3 @@ function loadNovaFaceJS() {
 window.onload = function () {
   loadNovaFace();
 };
-
