@@ -1,0 +1,263 @@
+/* Felix */
+.personal-assistant {
+	position: fixed;
+	bottom: 0;
+	left: 30px;
+	display: flex;
+	align-items: flex-start; /* Optionnel, selon ce que tu veux aligner */
+	justify-content: flex-start; /* Optionnel aussi */
+	width: auto; /* ou un autre width selon ce que tu veux */
+	margin-bottom: 20px; /* Enlève le margin-top si tu veux le coller en bas */
+}
+
+.felix  {
+	position: absolute;
+	bottom: 50px;
+	width: 110px;
+	height: 95px;
+	border-radius: 45%;
+	border: 3px solid lime;
+	box-shadow: 0 0 5px rgb(0, 255, 0, 0.5);
+	animation: breathe-and-jump 3s linear infinite;
+	cursor: pointer;
+	z-index: 1;
+}
+.felix::before {
+	content: '';
+	position: absolute;
+	top: -1px;
+	left: -1px;
+	width: calc(100% + 3px);
+	height: calc(100% + 2px);
+	background-color: #18c;
+	background: linear-gradient(to bottom, red, rgb(27, 3, 3));
+	background: -webkit-linear-gradient(to bottom, red, rgb(27, 3, 3));
+	border-radius: 45%;
+	opacity: 0;
+	transition: 0.3s linear all;
+}
+.felix > .eyes { position: relative; }
+.felix > .eyes > .eye {
+	position: absolute;
+	top: 20px;
+	width: 20px;
+	height: 25px;
+	border-radius: 30% 30% 70% 70%;
+	background-color: lime;
+    background-repeat: no-repeat;
+	box-shadow: 0 0 12px rgb(0, 255, 0, 0.5);
+	animation: blink 5s linear infinite;
+}
+.felix > .eyes > .eye.left { left: 25%; }
+.felix > .eyes > .eye.right { right: 25%; }
+
+/* Platforms */
+.platform {
+	transform: rotateX(70deg);
+	width: 100px;
+	height: 100px;
+	box-shadow: 0 0 100px lime,
+		         0 0 15px lime inset;
+	animation: jump-pulse 3s linear infinite;
+	border-radius: 50%;
+	transition: 0.2s linear all;
+	margin-left: 3px;
+}
+
+/* Awaiting Command */
+.felix.active { animation: bounce-then-breathe 5s linear infinite; }
+.felix.active::before { opacity: 1; }
+.felix.active,
+.felix.active > .eyes > .eye {
+	border-color: red;
+	box-shadow: 0 0 5px red;
+}
+.felix.active + .platform {
+	box-shadow: 0 0 100px red,
+		         0 0 25px red inset;
+	animation: bounce-pulse 5s linear;
+}
+
+/* Deactivation */
+.felix.inactive {
+	animation: deactivate 0.75s linear,
+				  breathe-and-jump 6s linear infinite;
+}
+.felix.inactive + .platform {
+	animation: deactivate-platform 0.75s linear;
+}
+
+/* Hover */
+.felix:not(.active):hover {
+	animation: shake-to-alert 0.5s linear;
+	height: 105px;
+	transform: translateY(-4px);
+}
+.felix:not(.active):hover,
+.felix:not(.active):hover > .eyes > .eye {
+	border-color: lime;
+	box-shadow: 0 0 5px lime;
+}
+.felix:not(.active):hover + .platform {
+	box-shadow: 0 0 100px lime,
+		         0 0 15px lime inset;
+	animation: shake-pulse 0.5s linear;
+}
+
+
+/* Response */
+.response-frame {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	background-color: #000c;
+	z-index: -1;
+	opacity: 0;
+}
+.response-frame.active {
+	z-index: 1000;
+	opacity: 1;
+}
+.response-frame > .lead {
+	padding: 10px;
+	margin: 10px;
+	border-radius: 5px;
+	background-color: #fff;
+	color: #333;
+}
+.response-frame > .fas {
+	width: 50px;
+	height: 50px;
+	font-size: 25px;
+	line-height: 45px;
+	border: 2px solid #fff;
+	border-radius: 50%;
+	cursor: pointer;
+	box-shadow: 0 0 10px #fff, 0 0 5px #fff inset;
+	transition: 0.3s linear all;
+}
+.response-frame > .fas:hover {
+	border: 2px solid #f55;
+	box-shadow: 0 0 15px #f55, 0 0 5px #f55 inset;
+	color: #f55;
+}
+
+/* Bulle de dialogue */
+.bubble {
+    position: absolute;
+    bottom: 120px; /* Au-dessus de Felix */
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px;
+    margin-bottom: 50px;
+    max-width: 200px;
+    background-color: rgb(255, 255, 255, 0.8);
+    color: #333;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.bubble::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 10px;
+    border-style: solid;
+    border-color: #fff transparent transparent transparent;
+}
+
+.bubble.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* Animations */
+@keyframes fade-in {
+	0% { opacity: 0; }
+	100% { opacity: 1; }
+}
+@keyframes breathe {
+	0%, 100% {
+		height: 95px;
+		transform: translateY(0);
+	}
+	50% {
+		height: 100px;
+		transform: translateY(-5px);
+	}
+}
+@keyframes bounce-then-breathe {
+	0%, 5%, 10%, 15% { transform: translateY(0); }
+	2.5%, 7.5%, 12.5% { transform: translateY(-15px); }
+	20%, 40%, 60%, 80%, 100% {
+		height: 95px;
+		transform: translateY(0);
+	}
+	30%, 50%, 70%, 90% {
+		height: 100px;
+		transform: translateY(-5px);
+	}
+}
+@keyframes shake-pulse {
+	0%, 20%, 40%, 60%, 80%, 100% { box-shadow: 0 0 100px lime, 0 0 15px lime inset; }
+	10%, 25%, 35%, 50%, 65% { box-shadow: 0 0 115px lime, 0 0 15px lime inset; }
+	15%, 30%, 45%, 55%, 70% { box-shadow: 0 0 95px lime, 0 0 15px lime inset; }
+}
+@keyframes bounce-pulse {
+	0%, 5%, 10%, 15% { box-shadow: 0 0 30px red, 0 0 45px red inset; }
+	2.5%, 7.5%, 12.5% { box-shadow: 0 0 100px red, 0 0 15px red inset; }
+	20%, 40%, 60%, 80%, 100% { box-shadow: 0 0 30px red, 0 0 45px red inset; }
+	30%, 50%, 70%, 90% { box-shadow: 0 0 70px red, 0 0 25px red inset; }
+}
+@keyframes jump-pulse {
+	0%, 40%, 80%, 100% {
+		box-shadow: 0 0 30px lime,
+		         	0 0 45px lime inset;
+	}
+	20%, 60%, 70%, 90% {
+		box-shadow: 0 0 70px lime,
+		         	0 0 25px lime inset;
+	}
+	85% {
+		box-shadow: 0 0 100px lime,
+		         	0 0 15px lime inset;
+	}
+}
+@keyframes breathe-and-jump {
+	0%, 40%, 80%, 100% { height: 95px; transform: translateY(0); }
+	20%, 60%, 70%, 90% { height: 100px; transform: translateY(-5px); }
+	85% { height: 85px; transform: translateY(-20px); }
+}
+@keyframes shake-to-alert {
+	0%, 20%, 40%, 60%, 80%, 100% { transform: rotate(0) translateY(-5px); }
+	10%, 25%, 35%, 50%, 65% { transform: rotate(5deg) translateY(-5px); }
+	15%, 30%, 45%, 55%, 70% { transform: roate(-5deg) translateY(-5px); }
+}
+@keyframes blink {
+	0%, 100% { transform: scale(1, 0.05); }
+	5%, 95% { transform: scale(1, 1); }
+}
+@keyframes deactivate {
+	0% { border-color: red; }
+	20%, 60% { border-color: #f55; }
+	40%, 80%, 100% { border-color: lime; }
+}
+@keyframes deactivate-platform {
+	0% { box-shadow: 0 0 100px red, 0 0 15px red inset; }
+	40%, 80%, 100% { box-shadow: 0 0 15px lime, 0 0 15px lime inset; }
+	20%, 60% { box-shadow: 0 0 100px #f55, 0 0 15px #f55 inset; }
+}
+

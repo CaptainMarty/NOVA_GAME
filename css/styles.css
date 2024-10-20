@@ -42,12 +42,12 @@ h4 {
     align-items: center;
     margin-top: 20px;
     font-size: 18px;
-    cursor: none;
+
 }
 
 #authorize-twitch:hover {
     background-color: #3f4252 !important ;
-    cursor: none;
+
 
 }
 
