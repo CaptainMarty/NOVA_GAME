@@ -151,8 +151,8 @@
 /* Bulle de dialogue */
 .bubble {
     position: absolute;
-    top: -150px; /* Placer en haut */
-    right: -200px; /* Ajuster à droite de Felix */
+    top: -170px; /* Placer en haut */
+    right: -180px; /* Ajuster à droite de Felix */
     padding: 10px 15px; /* Ajuster le padding pour une meilleure apparence */
     max-width: 250px; /* Taille max ajustable */
     background-color: rgba(255, 255, 255, 0.9); /* Légèrement transparent */
