@@ -4,7 +4,7 @@ document.getElementById('authorize-twitch').addEventListener('click', function (
   const checkbox = document.getElementById('twitch-authorization');
 
   if (checkbox.checked) {
-    const scopes = 'user:edit chat:edit chat:read user:read:email channel:manage:broadcast channel:read:vips channel:manage:vips channel:read:guest_star';
+    const scopes = 'user:edit chat:edit chat:read user:read:email channel:manage:moderators channel:manage:broadcast channel:read:vips channel:manage:vips channel:read:guest_star';
 
     const authUrl = `https://id.twitch.tv/oauth2/authorize?client_id=${config.clientId}&redirect_uri=${encodeURIComponent(config.redirectUri)}&response_type=token&scope=${encodeURIComponent(scopes)}`;
 

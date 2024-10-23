@@ -21,4 +21,3 @@ export function fetchAPI(url, method, accessToken, body = null) {
         return response.json();
     });
 }
-

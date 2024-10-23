@@ -1,7 +1,4 @@
-import config from './config.js'; // Assurez-vous que le chemin est correct
-
 import * as helix from './services/helixTwitch.js';
-import { fetchAPI } from './services/fetch.js';
 
 // Vérifie l'URL pour le token d'accès
 const urlParams = new URLSearchParams(window.location.hash.substring(1));
@@ -12,7 +9,6 @@ if (accessToken) {
     console.log(helix);
     helix.getUserData(accessToken).then(async (userData) => {
       const channelData = await helix.getChannelData(userData.id, accessToken).catch(showError);
-
       startGame(channelData);
     }).catch(showError);
 } else {
@@ -44,17 +40,20 @@ function createScenes(channelName, viewerCount) {
             message: `J'ai été développée dans le but de savoir si votre communauté vous aime autant que vous le pensez.`,
             choices: [
                 { text: "Ma communauté m'aime déjà, je le sais", nextScene: 3 },
-                { text: "Je ne peux pas en être sûr à 100%", nextScene: 4 }
+                { text: "Je ne peux pas en être sûr à 100%", nextScene: 8 }
             ],
         },
         3: {
-          file: './scenes/scene3.js',
-          choices: [{ text: "Commencer le test", nextScene: 5 }], // Commencer le test
+          file: '/js/scenes/scene1.js',
+          choices: [{ text: "", nextScene: 4}],
         },
-        5: { // Scène pour le test
-            message: `Le test commence maintenant ! Vous avez 2 minutes pour écrire "NOVA" dans le chat.`,
-            choices: [],
-        }
+        4: {
+            message: `PERDU, il n'y à pas assez de "NOVA"` + `Regarde ton titre de stream maintenant`,
+            choices: [
+                { text: "Je ne peux pas en être sûr à 100%", nextScene: 8 }
+            ],
+        },
+
     };
 }
 
@@ -73,7 +72,7 @@ function displayScene(sceneIndex, scenes) {
                 button.innerText = choice.text;
                 button.addEventListener('click', () => {
                     choicesContainer.innerHTML = ''; // Efface les choix avant d'afficher la nouvelle scène
-                    if (sceneIndex === 3 && choice.text === "Commencer le test") {
+                    if (sceneIndex === 4 && choice.text === "BLA BLA BLA") {
                         startViewerTest(channelName, accessToken); // Appel de la fonction de test
                     } else {
                         displayScene(choice.nextScene, scenes);
@@ -87,7 +86,7 @@ function displayScene(sceneIndex, scenes) {
       import(scene.file).then((newScene) => {
         newScene.default(scenes, scene, nextScene).then(result => {
         });
-      });
+      }).catch(showError);
     }
 }
 
@@ -118,70 +117,6 @@ function showError(message, error = '') {
     console.error(message, error);
     document.getElementById('nova-chat').innerHTML += `<p>${message}</p>`;
 }
-
-// Fonction pour gérer le test des viewers
-function startViewerTest(channelName, accessToken) {
-    messageContainer.innerHTML = "Le test commence maintenant ! Vous avez 2 minutes pour écrire 'NOVA' dans le chat.";
-    console.log("Démarrage du test des viewers pour le canal :", channelName);
-    
-    let timer = 10;
-    let count = 0; // Compteur pour les messages "NOVA"
-
-    // Écoute des messages du chat
-    const chatSocket = new WebSocket(`wss://irc-ws.chat.twitch.tv:443`); // Connexion WebSocket
-
-    chatSocket.onopen = () => {
-        console.log("Connexion au chat ouverte");
-        // S'authentifier dans le chat
-        chatSocket.send(`PASS oauth:${accessToken}`);
-        chatSocket.send(`NICK ${channelName}`);
-        chatSocket.send(`JOIN #${channelName}`);
-        console.log(`Connecté au canal #${channelName}`);
-    };
-
-    chatSocket.onmessage = (event) => {
-        const message = event.data;
-        // Vérifie si le message contient "PRIVMSG"
-        if (message.includes("PRIVMSG")) {
-            const userMessage = message.split(':')[2]?.trim(); // Récupère le message de l'utilisateur
-            if (userMessage?.includes("NOVA")) {
-                count++;
-                console.log("NOVA = ", count);
-            }
-        }
-    };
-
-    const interval = setInterval(() => {
-        timer--;
-        console.log("Temps restant :", timer);
-        if (timer <= 0) {
-            clearInterval(interval);
-            chatSocket.close(); // Ferme la connexion du chat
-            document.getElementById('nova-chat').innerHTML += `<p>Temps écoulé ! Vous avez utilisé "NOVA" ${count} fois.</p>`;
-            console.log("Test terminé. Compteur final :", count);
-            modifyStreamTitle(count, channelName, accessToken); // Modifie le titre du stream
-        }
-    }, 1000); // Diminuer le timer chaque seconde
-}
-
-// Fonction pour modifier le titre du stream
-function modifyStreamTitle(count, userId, accessToken) {
-    console.log("Vérification de l'ID de l'utilisateur :", userId);
-    
-    // Assurez-vous que userId est un nombre valide
-    if (isNaN(userId)) {
-        console.error("L'ID de l'utilisateur fourni n'est pas valide :", userId);
-        showError("Erreur : l'ID de l'utilisateur n'est pas valide.");
-        return; // Ne continuez pas si l'ID est invalide
-    }
-
-    const newTitle = `NOVA a été mentionné ${count} fois !`;
-
-    console.log("Modification du titre du stream avec le titre :", newTitle);
-
-    helix.updateStreamTitle(accessToken, userId, newTitle).catch(showError);
-}
-
 
 const messageContainer = document.getElementById('nova-chat');  
 const choicesContainer = document.getElementById('choices-container');  

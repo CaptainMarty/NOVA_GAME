@@ -104,50 +104,6 @@
 	animation: shake-pulse 0.5s linear;
 }
 
-
-/* Response */
-.response-frame {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	background-color: #000c;
-	z-index: -1;
-	opacity: 0;
-}
-.response-frame.active {
-	z-index: 1000;
-	opacity: 1;
-}
-.response-frame > .lead {
-	padding: 10px;
-	margin: 10px;
-	border-radius: 5px;
-	background-color: #fff;
-	color: #333;
-}
-.response-frame > .fas {
-	width: 50px;
-	height: 50px;
-	font-size: 25px;
-	line-height: 45px;
-	border: 2px solid #fff;
-	border-radius: 50%;
-	cursor: pointer;
-	box-shadow: 0 0 10px #fff, 0 0 5px #fff inset;
-	transition: 0.3s linear all;
-}
-.response-frame > .fas:hover {
-	border: 2px solid #f55;
-	box-shadow: 0 0 15px #f55, 0 0 5px #f55 inset;
-	color: #f55;
-}
-
 /* Bulle de dialogue */
 .bubble {
     position: absolute;
@@ -155,10 +111,10 @@
     right: -180px; /* Ajuster à droite de Felix */
     padding: 10px 15px; /* Ajuster le padding pour une meilleure apparence */
     max-width: 250px; /* Taille max ajustable */
-    background-color: rgba(255, 255, 255, 0.9); /* Légèrement transparent */
-    color: #333;
+	border-style: solid;
+	border-color: lime;
+    color: lime;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: left; /* Aligner le texte à gauche pour un affichage naturel */
     opacity: 0;
     visibility: hidden;
@@ -174,7 +130,7 @@
     left: 10px; /* Ajuste la flèche en fonction de la position */
     border-width: 10px;
     border-style: solid;
-    border-color: rgba(255, 255, 255, 0.9) transparent transparent transparent;
+    border-color: lime transparent transparent transparent;
 }
 
 .bubble.show {
